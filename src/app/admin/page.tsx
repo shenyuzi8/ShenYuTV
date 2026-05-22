@@ -922,7 +922,7 @@ const UserConfig = ({ config, role, refreshConfig }: UserConfigProps) => {
                       <span className='text-sm text-gray-900 dark:text-gray-100'>
                         {group.enabledApis && group.enabledApis.length > 0
                           ? `${group.enabledApis.length} 个源`
-                          : '无限制'}
+                          : '限制'}
                       </span>
                     </div>
                   </td>
@@ -1049,7 +1049,7 @@ const UserConfig = ({ config, role, refreshConfig }: UserConfigProps) => {
                       {group.name} (
                       {group.enabledApis && group.enabledApis.length > 0
                         ? `${group.enabledApis.length} 个源`
-                        : '无限制'}
+                        : '限制'}
                       )
                     </option>
                   ))}
@@ -1316,7 +1316,7 @@ const UserConfig = ({ config, role, refreshConfig }: UserConfigProps) => {
                             <span className='text-sm text-gray-900 dark:text-gray-100'>
                               {user.enabledApis && user.enabledApis.length > 0
                                 ? `${user.enabledApis.length} 个源`
-                                : '无限制'}
+                                : '限制'}
                             </span>
                             {/* 配置采集源权限按钮 */}
                             {(role === 'owner' ||
@@ -1483,7 +1483,7 @@ const UserConfig = ({ config, role, refreshConfig }: UserConfigProps) => {
                       </span>
                     </div>
                     <p className='text-sm text-blue-700 dark:text-blue-400 mt-1'>
-                      提示：全不选为无限制，选中的采集源将限制用户只能访问这些源
+                      提示：全不选为限制，选中的采集源将限制用户只能访问这些源
                     </p>
                   </div>
                 </div>
@@ -1537,7 +1537,7 @@ const UserConfig = ({ config, role, refreshConfig }: UserConfigProps) => {
                       onClick={() => setSelectedApis([])}
                       className={buttonStyles.quickAction}
                     >
-                      全不选（无限制）
+                      全不选（限制）
                     </button>
                     <button
                       onClick={() => {
@@ -1557,7 +1557,7 @@ const UserConfig = ({ config, role, refreshConfig }: UserConfigProps) => {
                     <span className='font-medium text-blue-600 dark:text-blue-400'>
                       {selectedApis.length > 0
                         ? `${selectedApis.length} 个源`
-                        : '无限制'}
+                        : '限制'}
                     </span>
                   </div>
                 </div>
@@ -1715,7 +1715,7 @@ const UserConfig = ({ config, role, refreshConfig }: UserConfigProps) => {
                         }
                         className={buttonStyles.quickAction}
                       >
-                        全不选（无限制）
+                        全不选（限制）
                       </button>
                       <button
                         onClick={() => {
@@ -1878,7 +1878,7 @@ const UserConfig = ({ config, role, refreshConfig }: UserConfigProps) => {
                         }
                         className={buttonStyles.quickAction}
                       >
-                        全不选（无限制）
+                        全不选（限制）
                       </button>
                       <button
                         onClick={() => {
@@ -1993,7 +1993,7 @@ const UserConfig = ({ config, role, refreshConfig }: UserConfigProps) => {
                       </span>
                     </div>
                     <p className='text-sm text-blue-700 dark:text-blue-400 mt-1'>
-                      提示：选择"无用户组"为无限制，选择特定用户组将限制用户只能访问该用户组允许的采集源
+                      提示：选择"无用户组"为限制，选择特定用户组将限制用户只能访问该用户组允许的采集源
                     </p>
                   </div>
                 </div>
@@ -2013,7 +2013,7 @@ const UserConfig = ({ config, role, refreshConfig }: UserConfigProps) => {
                     }}
                     className='w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors'
                   >
-                    <option value=''>无用户组（无限制）</option>
+                    <option value=''>无用户组（限制）</option>
                     {userGroups.map((group) => (
                       <option key={group.name} value={group.name}>
                         {group.name}{' '}
@@ -2375,7 +2375,7 @@ const UserConfig = ({ config, role, refreshConfig }: UserConfigProps) => {
                     </div>
                     <p className='text-sm text-blue-700 dark:text-blue-400'>
                       将为选中的 <strong>{selectedUsers.size} 个用户</strong>{' '}
-                      设置用户组，选择"无用户组"为无限制
+                      设置用户组，选择"无用户组"为限制
                     </p>
                   </div>
 

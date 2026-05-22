@@ -4,7 +4,7 @@
   <img src="https://img.shenyuzi.com/icon/chuyin.gif" alt="ShenYuTV Logo" width="120">
 </div>
 
-> 🎬 **ShenYuTV** 是一个基于ShenYuTV的开箱即用的、跨平台的影视聚合播放器。它采取 **Next.js 14** + **Tailwind&nbsp;CSS** + **TypeScript** 构建，支持多资源搜索、在线播放、收藏同步、播放记录、云端存储，让你可以随时随地畅享海量免费影视内容。
+> 🎬 **ShenYuTV** 是一个基于LunaTV v100的开箱即用的、跨平台的影视聚合播放器。它采取 **Next.js 14** + **Tailwind&nbsp;CSS** + **TypeScript** 构建，支持多资源搜索、在线播放、收藏同步、播放记录、云端存储，让你可以随时随地畅享海量免费影视内容。
 
 <div align="center">
 
@@ -32,20 +32,12 @@
 
 ### 注意：部署后项目为空壳项目，无内置播放源和直播源，需要自行收集
 
-<details>
-  <summary>点击查看项目截图</summary>
-  <img src="public/screenshot1.png" alt="项目截图" style="max-width:600px">
-  <img src="public/screenshot2.png" alt="项目截图" style="max-width:600px">
-  <img src="public/screenshot3.png" alt="项目截图" style="max-width:600px">
-</details>
-
 ### 请不要在 B站、小红书、微信公众号、抖音、今日头条或其他中国大陆社交平台发布视频或文章宣传本项目，不授权任何“科技周刊/月刊”类项目或站点收录本项目。
 
 ## 🗺 目录
 
 - [技术栈](#技术栈)
 - [部署](#部署)
-  - [一键部署](#zeabur-一键部署)
   - [Docker 部署](#Kvrocks-存储推荐)
 - [配置文件](#配置文件)
 - [订阅](#订阅)
@@ -72,21 +64,6 @@
 ## 部署
 
 本项目**仅支持 Docker 或其他基于 Docker 的平台** 部署。
-
-### zeabur 一键部署
-
-点击下方按钮即可一键部署，自动配置 LunaTV + Kvrocks 数据库：
-
-[![Deploy on Zeabur](https://zeabur.com/button.svg)](https://zeabur.com/templates/8MPTQU/deploy)
-
-**优势**：
-
-- ✅ 无需配置，一键启动（自动部署完整环境）
-- ✅ 自动 HTTPS 和全球 CDN 加速
-- ✅ 持久化存储，数据永不丢失
-- ✅ 免费额度足够个人使用
-
-**⚠️ 重要提示**：部署完成后，需要在 Zeabur 中为 LunaTV 服务设置访问域名（Domain）才能在浏览器中访问。详见下方 [设置访问域名](#5-设置访问域名必须) 步骤。
 
 ### Kvrocks 存储（推荐）
 
@@ -305,4 +282,5 @@ NEXT_PUBLIC_DOUBAN_IMAGE_PROXY_TYPE 选项解释：
 - [HLS.js](https://github.com/video-dev/hls.js) — 实现 HLS 流媒体在浏览器中的播放支持。
 - [Zwei](https://github.com/bestzwei) — 提供获取豆瓣数据的 cors proxy
 - [CMLiussss](https://github.com/cmliu) — 提供豆瓣 CDN 服务
+- [LunaTV](https://github.com/MoonTechLab/LunaTV/)
 - 感谢所有提供免费影视接口的站点。
