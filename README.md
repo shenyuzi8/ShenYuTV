@@ -40,12 +40,9 @@
 - [部署](#部署)
   - [Docker 部署](#Kvrocks-存储推荐)
 - [配置文件](#配置文件)
-- [订阅](#订阅)
-- [自动更新](#自动更新)
 - [环境变量](#环境变量)
 - [客户端](#客户端)
 - [AndroidTV 使用](#AndroidTV-使用)
-- [Roadmap](#roadmap)
 - [安全与隐私提醒](#安全与隐私提醒)
 - [License](#license)
 - [致谢](#致谢)
@@ -80,6 +77,11 @@ services:
       - PASSWORD=admin_password
       - NEXT_PUBLIC_STORAGE_TYPE=kvrocks
       - KVROCKS_URL=redis://ShenYuTV-kvrocks:6666
+      - SMTP_HOST=smtp.qq.com
+      - SMTP_PORT=465
+      - SMTP_USER=xxx@qq.com
+      - SMTP_PASS=
+      - SMTP_FROM=ShenyuTV xxx@qq.com
     networks:
       - ShenYuTV-network
     depends_on:
@@ -114,6 +116,11 @@ services:
       - PASSWORD=admin_password
       - NEXT_PUBLIC_STORAGE_TYPE=redis
       - REDIS_URL=redis://ShenYuTV-redis:6379
+      - SMTP_HOST=smtp.qq.com
+      - SMTP_PORT=465
+      - SMTP_USER=xxx@qq.com
+      - SMTP_PASS=
+      - SMTP_FROM=ShenyuTV xxx@qq.com
     networks:
       - ShenYuTV-network
     depends_on:
@@ -152,6 +159,11 @@ services:
       - NEXT_PUBLIC_STORAGE_TYPE=upstash
       - UPSTASH_URL=上面 https 开头的 HTTPS ENDPOINT
       - UPSTASH_TOKEN=上面的 TOKEN
+      - SMTP_HOST=smtp.qq.com
+      - SMTP_PORT=465
+      - SMTP_USER=xxx@qq.com
+      - SMTP_PASS=
+      - SMTP_FROM=ShenyuTV xxx@qq.com
 ```
 
 ## 配置文件
