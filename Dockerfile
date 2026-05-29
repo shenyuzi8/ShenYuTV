@@ -3,6 +3,9 @@ FROM node:20-alpine AS deps
 
 WORKDIR /app
 
+# 【关键】设置阿里云 npm 镜像源
+RUN npm config set registry https://registry.npmmirror.com/
+
 # 复制依赖清单
 COPY package.json package-lock.yaml ./
 
