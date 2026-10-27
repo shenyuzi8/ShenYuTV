@@ -220,6 +220,7 @@ async function getInitConfig(
       Users: [],
       Tags: [{ name: '普通用户', enabledApis: [] }], // 默认空权限
     },
+    GuestConfig: { enabledApis: [] },
     SourceConfig: [],
     CustomCategories: [],
     LiveConfig: [],
@@ -299,6 +300,7 @@ export async function getConfig(): Promise<AdminConfig> {
     return cachedConfig;
   }
 
+  const storageType = process.env.NEXT_PUBLIC_STORAGE_TYPE || 'localstorage';
   let adminConfig: AdminConfig | null = null;
   try {
     adminConfig = await db.getAdminConfig();
@@ -311,7 +313,9 @@ export async function getConfig(): Promise<AdminConfig> {
   }
   adminConfig = configSelfCheck(adminConfig);
   cachedConfig = adminConfig;
-  db.saveAdminConfig(cachedConfig);
+  if (storageType !== 'localstorage') {
+    await db.saveAdminConfig(cachedConfig);
+  }
   return cachedConfig;
 }
 
@@ -426,8 +430,18 @@ export async function getAvailableApiSites(user?: string): Promise<ApiSite[]> {
   const config = await getConfig();
   const allApiSites = config.SourceConfig.filter((s) => !s.disabled);
 
-  // 未登录 → 无权限
-  if (!user) return [];
+  // 访客只使用管理员明确开放的视频源
+  if (!user) {
+    const guestApis = new Set(config.GuestConfig?.enabledApis || []);
+    return allApiSites
+      .filter((site) => guestApis.has(site.key))
+      .map((site) => ({
+        key: site.key,
+        name: site.name,
+        api: site.api,
+        detail: site.detail,
+      }));
+  }
 
   const userConfig = config.UserConfig.Users.find((u) => u.username === user);
   // 无用户信息 → 无权限

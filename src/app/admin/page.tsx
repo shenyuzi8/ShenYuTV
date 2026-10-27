@@ -34,6 +34,7 @@ import {
   FolderOpen,
   Settings,
   Tv,
+  User,
   Users,
   Video,
 } from 'lucide-react';
@@ -2444,6 +2445,72 @@ const UserConfig = ({ config, role, refreshConfig }: UserConfigProps) => {
 };
 
 // 视频源配置组件
+const GuestSourceConfig = ({
+  config,
+  refreshConfig,
+}: {
+  config: AdminConfig | null;
+  refreshConfig: () => void;
+}) => {
+  const [enabledApis, setEnabledApis] = useState<string[]>([]);
+  const [saving, setSaving] = useState(false);
+  useEffect(() => {
+    setEnabledApis(config?.GuestConfig?.enabledApis || []);
+  }, [config?.GuestConfig?.enabledApis]);
+  const save = async () => {
+    setSaving(true);
+    try {
+      const response = await fetch('/api/admin/guest', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ enabledApis }),
+      });
+      if (!response.ok) throw new Error('保存访客权限失败');
+      refreshConfig();
+    } finally {
+      setSaving(false);
+    }
+  };
+  return (
+    <div className='space-y-4'>
+      <p className='text-sm text-gray-500 dark:text-gray-400'>
+        选择访客无需登录即可使用的视频源。
+      </p>
+      <div className='grid gap-2 sm:grid-cols-2'>
+        {(config?.SourceConfig || [])
+          .filter((source) => !source.disabled)
+          .map((source) => (
+            <label
+              key={source.key}
+              className='flex items-center gap-2 rounded-lg border border-gray-200 p-3 dark:border-gray-700'
+            >
+              <input
+                type='checkbox'
+                checked={enabledApis.includes(source.key)}
+                onChange={(event) =>
+                  setEnabledApis((current) =>
+                    event.target.checked
+                      ? [...current, source.key]
+                      : current.filter((key) => key !== source.key),
+                  )
+                }
+              />
+              <span>{source.name}</span>
+            </label>
+          ))}
+      </div>
+      <button
+        type='button'
+        onClick={save}
+        disabled={saving}
+        className={buttonStyles.primary}
+      >
+        {saving ? '保存中…' : '保存访客权限'}
+      </button>
+    </div>
+  );
+};
+
 const VideoSourceConfig = ({
   config,
   refreshConfig,
@@ -5160,6 +5227,7 @@ function AdminPageClient() {
   const [showResetConfigModal, setShowResetConfigModal] = useState(false);
   const [expandedTabs, setExpandedTabs] = useState<{ [key: string]: boolean }>({
     userConfig: false,
+    guestConfig: false,
     videoSource: false,
     liveSource: false,
     siteConfig: false,
@@ -5331,6 +5399,17 @@ function AdminPageClient() {
             </CollapsibleTab>
 
             {/* 视频源配置标签 */}
+            <CollapsibleTab
+              title='访客权限'
+              icon={
+                <User size={20} className='text-gray-600 dark:text-gray-400' />
+              }
+              isExpanded={expandedTabs.guestConfig}
+              onToggle={() => toggleTab('guestConfig')}
+            >
+              <GuestSourceConfig config={config} refreshConfig={fetchConfig} />
+            </CollapsibleTab>
+
             <CollapsibleTab
               title='视频源配置'
               icon={

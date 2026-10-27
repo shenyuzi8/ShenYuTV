@@ -69,9 +69,17 @@ interface UserCacheStore {
 }
 
 // ---- 常量 ----
-const PLAY_RECORDS_KEY = 'ShenYuTV_play_records';
-const FAVORITES_KEY = 'ShenYuTV_favorites';
-const SEARCH_HISTORY_KEY = 'ShenYuTV_search_history';
+const IS_GUEST_SESSION =
+  typeof window !== 'undefined' && !getAuthInfoFromBrowserCookie()?.username;
+const PLAY_RECORDS_KEY = IS_GUEST_SESSION
+  ? 'ShenYuTV_guest_play_records'
+  : 'ShenYuTV_play_records';
+const FAVORITES_KEY = IS_GUEST_SESSION
+  ? 'ShenYuTV_guest_favorites'
+  : 'ShenYuTV_favorites';
+const SEARCH_HISTORY_KEY = IS_GUEST_SESSION
+  ? 'ShenYuTV_guest_search_history'
+  : 'ShenYuTV_search_history';
 
 // 缓存相关常量
 const CACHE_PREFIX = 'ShenYuTV_cache_';
@@ -80,6 +88,8 @@ const CACHE_EXPIRE_TIME = 60 * 60 * 1000; // 一小时缓存过期
 
 // ---- 环境变量 ----
 const STORAGE_TYPE = (() => {
+  // 访客数据只留在浏览器本地，即使站点账户数据使用远程数据库。
+  if (IS_GUEST_SESSION) return 'localstorage';
   const raw =
     (typeof window !== 'undefined' &&
       (window as any).RUNTIME_CONFIG?.STORAGE_TYPE) ||
